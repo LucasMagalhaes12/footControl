@@ -1,39 +1,48 @@
 import microcontroller 
-import subprocess
+import system
 
-pathNotification = "sounds/notification.wav"
-pathSound = "sounds/sound1.wav"
 
-arduino = microcontroller.Connect();
-subprocess.run(["notify-send", "Arduino", "Connected"])
-subprocess.run(["aplay", pathNotification])
+# Read config for set paths
+pathPrograms = [
+"/bin/vlc",
+"/bin/bash"
+]
 
-cont = 1
+pathSounds = [
+"sounds/notification.wav",
+"sounds/sound1.wav"
+]
 
-programs = [False]
+system = system.Control(pathPrograms, pathSounds)
+#system.getPathSounds()
+
+
+micro = microcontroller.Connect();
+system.playSound(0)
+system.notify("Microcontroller", "Is Connected")
+
+cont = 0
 
 while True:
-	arduinoRead = arduino.read()
-
-	print(arduinoRead, " - ", cont)
+	microRead = micro.read()
+	print(microRead, " - ", cont)
 	cont += 1
-	
-	if "AUDIO#" in arduinoRead:
-		volume = int(arduinoRead.replace("AUDIO#", ''))
-		volume = str((volume // 100) * 10)
-		print("--------"+volume)
-		subprocess.run(["amixer", "-D", "pulse", "set", "Master", volume+'%'])
 
-	else:
-		match arduinoRead:
-			case "bt1":
-				if not programs[0]:
-					program = subprocess.Popen("/bin/vlc")
-					programs[0] = True
-				
-				if program.poll() != None:
-					program = subprocess.Popen("/bin/vlc")
 
-			case "bt2":
-				subprocess.Popen(["aplay", pathSound])
 
+	if "AUDIO#" in microRead:
+		volume = int(microRead.replace("AUDIO#", ''))
+		system.setVolume(volume)
+
+	elif "BUTTON#" in microRead:
+		output = microRead.replace("BUTTON#", '')
+
+		print(output)
+		match output:
+			case '0':
+				system.startProgram(0)
+				print("start program")
+
+			case '1':
+				system.playSound(0)
+				print("start audio")
