@@ -50,4 +50,11 @@ class Control:
 		for i, path in enumerate(self.__pathSounds):
 			print(f"{i} {path}/n")
 		print()
-	
+
+
+	def recordSound(channels:int=2, rate:int=48000, time:int=5, output_path:str="sounds/record"):
+		#subprocess.Popen(["arecord", "-c", channels, "-r", rate, "-d", time, "sounds/record/audio.wav"])
+		subprocess.run(["arecord", "-f", "cd", "-d", "5", "sounds/record/audio.wav"])
+		print("finish record")
+
+

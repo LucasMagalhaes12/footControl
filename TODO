@@ -3,14 +3,15 @@ TODO LIST:
 
 Funções:
 V Abrir um programa em especifico
-Tocar sons (por call também)
 V Controlar audio do computdor
+Tocar sons (por call também)
 Gravar e reproduzir audio simultaneamente
-Executa macros (mapeia mouse para repetir ação)
+Executa macros (mapeia mouse para repetir ação ou atalhos)
+anti stand-by
 
 Erros:
 Desconectar microcontrolador
-
+Leitura analogica fica sem controle
 audio so roda formato wav
 
 
