@@ -17,7 +17,7 @@ system = system.Control(pathPrograms, pathSounds)
 #system.getPathSounds()
 
 
-micro = microcontroller.Connect();
+micro = microcontroller.Connect()
 system.playSound(0)
 system.notify("Microcontroller", "Is Connected")
 
@@ -44,5 +44,5 @@ while True:
 				print("start program")
 
 			case '1':
-				system.playSound(0)
+				system.playSound(1)
 				print("start audio")

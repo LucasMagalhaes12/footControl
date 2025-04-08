@@ -25,6 +25,7 @@ class Control:
 
 		if self.__process[id] == None or self.__process[id].poll() != None:
 			self.__process[id] = subprocess.Popen(self.__pathPrograms[id])
+		
 		"""	
 		elif self.__process[id].poll() != None:
 			self.__process[id] = subprocess.Popen(self.__pathPrograms[id])

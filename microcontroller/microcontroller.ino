@@ -1,42 +1,35 @@
 #define pot A0
 
-
-int lastPotValue;
 int buttonsPort[] = {8, 9};
-bool buttons[] = {false, false};
+int lastPotValue;
 
+#define potInput A0
 
-void buttonUpdate() {
-	for (int i=0; i<2; i++) {
-		if (buttons[i] != !digitalRead(buttonsPort[i]))
-			buttons[i] = !buttons[i];
+class Pot {
+    private:
+        int lastValue;
+        int currentValue;
 
-		if (buttons[i]) {
-			Serial.print("BUTTON#");
-			Serial.println(i);
-			delay(200);
+    public:
+        Pot() {
+            lastValue = analogRead(potInput);
 		}
-	}
-}
 
 
-void potUpdate() {
-	int potValue = analogRead(pot);
-	int difference = abs(potValue - lastPotValue);
+		void update() {
+			currentValue = analogRead(potInput);
+			int difference = abs(currentValue - lastValue);
 
-	if (difference > 10) {
-		Serial.print("AUDIO#");
-		Serial.println(potValue);
-		lastPotValue = potValue;
-	}
-}
+			if (difference > 10) {
+				//Serial.print("AUDIO#");
+				//Serial.println(potValue);
+				lastValue = currentValue;
+			}
+		}
+};
 
 
-void readMsg() {
-	char msg = Serial.read();
-	if (msg != -1) 
-		Serial.println(msg);
-}
+Pot pot;
 
 
 void setup() {
@@ -44,12 +37,13 @@ void setup() {
 	    pinMode(buttonsPort[i], INPUT_PULLUP);
 
     Serial.begin(9600);
-	lastPotValue = analogRead(pot);
+	
+
+	// lastPotValue = analogRead(pot);
 }
 
 
 void loop() {
 	buttonUpdate();
-	potUpdate();
-
+	pot.update();
 }

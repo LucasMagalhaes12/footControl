@@ -21,7 +21,7 @@ class Connect():
 		return msg[2:-5]
 
 
-	def write(self, message:str):
+	def send(self, message:str):
 		self._arduino.write(message.encode())
 
 
