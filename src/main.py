@@ -10,7 +10,8 @@ pathPrograms = [
 
 pathSounds = [
 "sounds/notification.wav",
-"sounds/sound1.wav"
+"sounds/sound1.wav",
+"sounds/record/audio.wav"
 ]
 
 system = system.Control(pathPrograms, pathSounds)
@@ -25,24 +26,30 @@ cont = 0
 
 while True:
 	microRead = micro.read()
-	print(microRead, " - ", cont)
+#	print(microRead, " - ", cont)
 	cont += 1
 
 
 
 	if "AUDIO#" in microRead:
-		volume = int(microRead.replace("AUDIO#", ''))
-		system.setVolume(volume)
+		volume = microRead.replace("AUDIO#", '')
+		if volume.isdigit():
+			pass
+			#system.setVolume(int(volume))
 
 	elif "BUTTON#" in microRead:
 		output = microRead.replace("BUTTON#", '')
 
 		print(output)
 		match output:
-			case '0':
+			case '2':
 				system.startProgram(0)
 				print("start program")
 
 			case '1':
-				system.playSound(0)
+				system.playSound(2)
 				print("start audio")
+
+			case '0':
+				system.recordSound()
+			

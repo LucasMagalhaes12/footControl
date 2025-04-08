@@ -1,0 +1,10 @@
+[programs]
+vlc = /bin/vlc
+bash = /bin/bash
+
+[macros]
+exit = alt+f4
+
+[geral]
+theme = dark
+
