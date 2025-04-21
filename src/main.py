@@ -42,14 +42,14 @@ while True:
 
 		print(output)
 		match output:
-			case '2':
+			case '0':
 				system.startProgram(0)
 				print("start program")
 
 			case '1':
-				system.playSound(2)
+				system.playSound(1)
 				print("start audio")
 
-			case '0':
+			case '2':
 				system.recordSound()
 			

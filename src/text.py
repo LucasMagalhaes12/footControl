@@ -2,6 +2,12 @@ import configparser
 import os
 
 
+def exists(path):
+	if os.path.exists(path):
+		return True
+	return False
+
+
 class Parser:
 	def __init__(self, file):
 
@@ -10,15 +16,8 @@ class Parser:
 		self.__configuracoes = {}
 
 
-
-	def exists(self, file):
-		if os.path.exists(file):
-			return True
-		return False
-
-
 	def sectionsCapture(self):
-		if self.exists(self.__file):
+		if exists(self.__file):
 			config.read(file, ecoding="utf-8")
 			for section in config.sections():
 				self.__configuracoes[section] = dict(config.items(section))	
@@ -41,9 +40,10 @@ class Parser:
 		config["geral"] = {
 			"theme":"dark"
 		}
-		
+		print(config)	
 		with open(filePath, 'w', encoding='utf-8') as file:
 			config.write(file)
+
 
 class Text:
 

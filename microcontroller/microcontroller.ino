@@ -1,49 +1,79 @@
-#define pot A0
-
-int buttonsPort[] = {8, 9};
-int lastPotValue;
-
-#define potInput A0
-
-class Pot {
-    private:
-        int lastValue;
-        int currentValue;
-
-    public:
-        Pot() {
-            lastValue = analogRead(potInput);
-		}
-
-
-		void update() {
-			currentValue = analogRead(potInput);
-			int difference = abs(currentValue - lastValue);
-
-			if (difference > 10) {
-				//Serial.print("AUDIO#");
-				//Serial.println(potValue);
-				lastValue = currentValue;
-			}
-		}
-};
 
 
 Pot pot;
+Button buttons;
 
 
 void setup() {
-	for (int i=0; i<2; i++)
-	    pinMode(buttonsPort[i], INPUT_PULLUP);
-
     Serial.begin(9600);
-	
-
-	// lastPotValue = analogRead(pot);
+	buttons.begin();
 }
 
 
 void loop() {
-	buttonUpdate();
-	pot.update();
+	buttons.update();
+//	pot.update();
 }
+
+
+class Pot {
+    private:
+
+	int lastValue;
+	int currentValue;
+	int difference;
+	int port = A0;
+
+    public:
+
+	Pot() {
+		lastValue = analogRead(port);
+	}
+
+	void update() {
+		currentValue = analogRead(port);
+		difference = abs(currentValue - lastValue);
+
+		if (difference > 10) {
+			//Serial.print("AUDIO#");
+			//Serial.println(potValue);
+			lastValue = currentValue;
+		}
+	}
+};
+
+
+class Button {
+	/*
+	MODES:
+	0 Programs
+	1 Audio
+	2 Automação
+	*/
+
+	private:
+
+	int mode = 0;
+	bool buttons[2] = {false, false};
+	int port[2] = {8, 9};
+
+	public:
+
+	void begin() {
+		for (int i=0; i<2; i++)
+			pinMode(port[i], INPUT_PULLUP);
+	}
+
+	void update() {
+		for (int i=0; i<2; i++) {
+			if (buttons[i] != !digitalRead(port[i]))
+				buttons[i] = !buttons[i];
+
+			if (buttons[i]) {
+				Serial.print("BUTTON#");
+				Serial.println(i);
+				delay(200);
+			}
+		}
+	}
+};
