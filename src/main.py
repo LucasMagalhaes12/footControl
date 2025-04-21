@@ -14,42 +14,42 @@ pathSounds = [
 "sounds/record/audio.wav"
 ]
 
-system = system.Control(pathPrograms, pathSounds)
-#system.getPathSounds()
-
+control = system.Control(pathPrograms, pathSounds)
+#control.getPathSounds()
 
 micro = microcontroller.Connect()
-system.playSound(0)
-system.notify("Microcontroller", "Is Connected")
+control.playSound(0)
+control.notify("Microcontroller", "Is Connected")
 
-cont = 0
 
 while True:
-	microRead = micro.read()
-#	print(microRead, " - ", cont)
-	cont += 1
+	option, value = micro.read().split('#')
 
-
-
-	if "AUDIO#" in microRead:
-		volume = microRead.replace("AUDIO#", '')
-		if volume.isdigit():
-			pass
-			#system.setVolume(int(volume))
-
-	elif "BUTTON#" in microRead:
-		output = microRead.replace("BUTTON#", '')
-
-		print(output)
-		match output:
-			case '0':
-				system.startProgram(0)
-				print("start program")
-
-			case '1':
-				system.playSound(1)
-				print("start audio")
-
-			case '2':
-				system.recordSound()
+	match option:
+		
+		case "AUDIO":
+			# if volume.isdigit():
+			control.setVolume(int(value))
 			
+
+		case "MOUSE":
+			posValue = int(value[1:])
+			if value[0] == 'X':
+				control.mouseMove(x=posValue)
+			
+			if value[0] == 'Y':
+				control.mouseMove(y=posValue)
+				
+
+		case "BUTTON":
+			match int(value):
+				case 0:
+					control.startProgram(0)
+					print("start program")
+
+				case 1:
+					control.playSound(1)
+					print("start audio")
+
+				# case 2:
+				# 	control.recordSound()
