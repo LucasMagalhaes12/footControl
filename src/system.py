@@ -51,16 +51,16 @@ class Control:
 		subprocess.run(["xdotool", "mousemove_relative", "--", str(self.maxValueMousePosX*2), str(self.maxValueMousePosY*2)])
 
 
-	def getPathPrograms(self):
-		for i, path in enumerate(self.__pathPrograms):
-			print(f"{i} {path}/n")
-		print()
+	# def getPathPrograms(self):
+	# 	for i, path in enumerate(self.__pathPrograms):
+	# 		print(f"{i} {path}/n")
+	# 	print()
 	
 
-	def getPathSounds(self):
-		for i, path in enumerate(self.__pathSounds):
-			print(f"{i} {path}/n")
-		print()
+	# def getPathSounds(self):
+	# 	for i, path in enumerate(self.__pathSounds):
+	# 		print(f"{i} {path}/n")
+	# 	print()
 
 
 	def recordSound(channels:int=2, rate:int=48000, time:int=5, output_path:str="sounds/record"):

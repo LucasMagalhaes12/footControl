@@ -1,23 +1,13 @@
+from file import Parser
 import microcontroller 
 import system
 
-
-# Read config for set paths
-pathPrograms = [
-"/bin/vlc",
-"/bin/bash"
-]
-
-pathSounds = [
-"sounds/notification.wav",
-"sounds/sound1.wav",
-"sounds/record/audio.wav"
-]
-
-control = system.Control(pathPrograms, pathSounds)
-#control.getPathSounds()
-
 micro = microcontroller.Connect()
+
+configFile = Parser("config.cfg")
+configFile = configFile.get()
+
+control = system.Control(list(configFile["programs"].values()), list(configFile["sounds"].values()))
 control.playSound(0)
 control.notify("Microcontroller", "Is Connected")
 
