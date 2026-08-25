@@ -7,7 +7,9 @@ micro = microcontroller.Connect()
 configFile = Parser("config.cfg")
 configFile = configFile.get()
 
-control = system.Control(list(configFile["programs"].values()), list(configFile["sounds"].values()))
+# control = system.Control(list(configFile["programs"].values()), list(configFile["sounds"].values()))
+control = system.Control()
+
 control.playSound(0)
 control.notify("Microcontroller", "Is Connected")
 
@@ -17,9 +19,9 @@ while True:
 
 	match option:
 		
-		case "AUDIO":
-			# if volume.isdigit():
-			control.setVolume(int(value))
+		# case "AUDIO":
+		# 	# if volume.isdigit():
+		# 	control.setVolume(int(value))
 			
 
 		case "MOUSE":
@@ -34,12 +36,13 @@ while True:
 		case "BUTTON":
 			match int(value):
 				case 0:
-					control.startProgram(0)
-					print("start program")
+					control.mouseClickRight()
 
 				case 1:
-					control.playSound(1)
-					print("start audio")
+					control.mouseClickLeft()
 
-				# case 2:
-				# 	control.recordSound()
+				case 2:
+					control.mouseScrollUp()
+
+				case 3:
+					control.mouseScrollDown()

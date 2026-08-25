@@ -8,19 +8,19 @@ class Button {
 	private:
 
 	int mode = 0;
-	bool buttons[2] = {false, false};
-	int port[2] = {8, 9};
+	bool buttons[4] = {false, false, false, false};
+	int port[4] = {8, 9, A4, A5};
 
 
 	public:
 
 	void begin() {
-		for (int i=0; i<2; i++)
+		for (int i=0; i<4; i++)
 			pinMode(port[i], INPUT_PULLUP);
 	}
 
 	void update() {
-		for (int i=0; i<2; i++) {
+		for (int i=0; i<4; i++) {
 			if (buttons[i] != !digitalRead(port[i]))
 				buttons[i] = !buttons[i];
 
@@ -71,7 +71,7 @@ class Pot {
 };
 
 
-Pot volume("VOLUME#", A0);
+// Pot volume("VOLUME#", A0);
 Pot mouseX("MOUSE#X", A1);
 Pot mouseY("MOUSE#Y", A2);
 Button buttons;
