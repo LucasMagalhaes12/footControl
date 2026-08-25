@@ -1,15 +1,17 @@
-import subprocess
+import pyautogui
+# import subprocess
 
-# pyautogui.PAUSE = 0.1
-# pyautogui.FAILSAFE = True
+pyautogui.PAUSE = 0.1
+pyautogui.FAILSAFE = True
 
 class Control:
 	def __init__(self):
-		self.maxValueMousePosX = self.maxValueMousePosY = 0
+		pass
 
 
 	def notify(self, title:str, comment:str):
-		pyautogui.alert(text=comment, title=title)
+		# subprocess.run(["notify-send", title, comment])
+		pyautogui.alert(text='test', title='test2')
 
 
 	def setVolume(self, volume:int):
