@@ -7,16 +7,16 @@ micro = microcontroller.Connect()
 configFile = Parser("config.cfg")
 configFile = configFile.get()
 
-# control = system.Control(list(configFile["programs"].values()), list(configFile["sounds"].values()))
 control = system.Control()
 
-control.playSound(0)
+# control.playSound(0)
 control.notify("Microcontroller", "Is Connected")
 
 
 while True:
 	option, value = micro.read().split('#')
-
+	print(option, value)
+	
 	match option:
 		
 		# case "AUDIO":
