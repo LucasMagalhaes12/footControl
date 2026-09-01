@@ -1,15 +1,12 @@
 import subprocess
 
-# pyautogui.PAUSE = 0.1
-# pyautogui.FAILSAFE = True
-
 class Control:
 	def __init__(self):
 		self.maxValueMousePosX = self.maxValueMousePosY = 0
-
+		subprocess.run(["ydotoold", "&"])
 
 	def notify(self, title:str, comment:str):
-		pyautogui.alert(text=comment, title=title)
+		subprocess.run(["notify-send", title, comment]) 
 
 
 	def setVolume(self, volume:int):
@@ -32,22 +29,22 @@ class Control:
 		elif (y > 0 and y > self.maxValueMousePosY) or y < self.maxValueMousePosY:
 			self.maxValueMousePosY = y
 
-		# subprocess.run(["xdotool", "mousemove_relative", "--", str(self.maxValueMousePosX*2), str(self.maxValueMousePosY*2)])
-		pyautogui.move(self.maxValueMousePosX*2, self.maxValueMousePosY*2)
+		subprocess.run(["ydotool", "mousemove", "-x", str(self.maxValueMousePosX*2), "-y", str(self.maxValueMousePosY*2)])
+		
 
 
 	def mouseClickRight(self):
-		pyautogui.click(button='left')
+		subprocess.run(["ydotool", "click", "0xC1"])
 		
 
 	def mouseClickLeft(self):
-		pyautogui.click(button='right')
-
-
+		subprocess.run(["ydotool", "click", "0xC0"])
+		
+		
 	def mouseScrollUp(self):
-		pyautogui.scroll(10)
+		subprocess.run(["ydotool", "mousemove", "-h", "0", "10"])
 
 
 	
 	def mouseScrollDown(self):
-		pyautogui.scroll(-10)
+		subprocess.run(["ydotool", "mousemove", "-h", "0", "-10"])

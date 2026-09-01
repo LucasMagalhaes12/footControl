@@ -72,8 +72,8 @@ class Pot {
 
 
 // Pot volume("VOLUME#", A0);
-Pot mouseX("MOUSE#X", A1);
-Pot mouseY("MOUSE#Y", A2);
+Pot mouseX("MOUSE#X", A2);
+Pot mouseY("MOUSE#Y", A1);
 Button buttons;
 
 
