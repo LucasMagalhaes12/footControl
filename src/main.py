@@ -30,7 +30,7 @@ while True:
 				control.mouseMove(x=posValue)
 			
 			if value[0] == 'Y':
-				control.mouseMove(y=posValue)
+				control.mouseMove(y=(posValue * -1))
 				
 
 		case "BUTTON":

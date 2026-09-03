@@ -1,9 +1,13 @@
 import subprocess
+from time import sleep
+
 
 class Control:
 	def __init__(self):
 		self.maxValueMousePosX = self.maxValueMousePosY = 0
-		subprocess.run(["ydotoold", "&"])
+		subprocess.run(["ydotoold"])
+		sleep(1)
+
 
 	def notify(self, title:str, comment:str):
 		subprocess.run(["notify-send", title, comment]) 
@@ -30,7 +34,6 @@ class Control:
 			self.maxValueMousePosY = y
 
 		subprocess.run(["ydotool", "mousemove", "-x", str(self.maxValueMousePosX*2), "-y", str(self.maxValueMousePosY*2)])
-		
 
 
 	def mouseClickRight(self):
