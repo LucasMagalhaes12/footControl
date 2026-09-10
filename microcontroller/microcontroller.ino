@@ -1,10 +1,4 @@
 class Button {
-	/*
-	MODES:
-	0 Programs
-	1 Audio
-	2 Automação
-	*/
 	private:
 
 	int mode = 0;
@@ -21,13 +15,13 @@ class Button {
 
 	void update() {
 		for (int i=0; i<4; i++) {
-			if (buttons[i] != !digitalRead(port[i]))
-				buttons[i] = !buttons[i];
 
-			if (buttons[i]) {
+			if (buttons[i] != !digitalRead(port[i])) {
+				buttons[i] = !buttons[i];
 				Serial.print("BUTTON#");
-				Serial.println(i);
-				delay(200);
+				Serial.print(i);
+				Serial.println(buttons[i]);
+				// delay(100);
 			}
 		}
 	}

@@ -24,12 +24,12 @@ while True:
 				
 
 		case "BUTTON":
-			match int(value):
+			match int(value[0]):
 				case 0:
-					control.mouseClickRight()
+					control.mouseClickRight(int(value[1]))
 
 				case 1:
-					control.mouseClickLeft()
+					control.mouseClickLeft(int(value[1]))
 
 				case 2:
 					control.mouseScrollUp()

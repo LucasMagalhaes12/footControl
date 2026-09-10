@@ -4,9 +4,8 @@ from time import sleep
 
 class Control:
 	def __init__(self):
-		self.maxValueMousePosX = self.maxValueMousePosY = 0
-		subprocess.run(["ydotoold"])
-		sleep(1)
+		# self.maxValueMousePosX = self.maxValueMousePosY = 0
+		subprocess.Popen(["ydotoold"])
 		self.acceleration = 1
 
 
@@ -14,41 +13,34 @@ class Control:
 		subprocess.run(["notify-send", title, comment]) 
 
 
-	# def setVolume(self, volume:int):
-	# 		volume = str((volume // 100) * 10)
-	# 		print("--------"+volume)
-	# 		if self.__lastVolume != volume:
-	# 			subprocess.run(["amixer", "-D", "pulse", "set", "Master", volume+'%'])
-	# 			self.__lastVolume = volume
-
-
 	def mouseMove(self, x:int=0, y:int=0):
-		# print(x, y)
-		if x == 0:
-			self.maxValueMousePosX = 0
-		elif (x > 0 and x > self.maxValueMousePosX) or x < self.maxValueMousePosX:
-			self.maxValueMousePosX = x
-
-		if y == 0:
-			self.maxValueMousePosY = 0
-		elif (y > 0 and y > self.maxValueMousePosY) or y < self.maxValueMousePosY:
-			self.maxValueMousePosY = y
-
-		subprocess.run(["ydotool", "mousemove", "-x", str(self.maxValueMousePosX*self.acceleration), "-y", str(self.maxValueMousePosY*self.acceleration)])
+		if x != 0 or y != 0:
+			subprocess.run([
+				"ydotool", "mousemove", 
+				"-x", str(x * self.acceleration), 
+				"-y", str(y * self.acceleration)
+        	])
 
 
-	def mouseClickRight(self):
-		subprocess.run(["ydotool", "click", "0xC1"])
-		
+	def mouseClickRight(self, state:int=0):
+		if state == 0:
+			subprocess.run(["ydotool", "click", "0x81"])
 
-	def mouseClickLeft(self):
-		subprocess.run(["ydotool", "click", "0xC0"])
+		elif state == 1:
+			subprocess.run(["ydotool", "click", "0x41"])
+
+
+	def mouseClickLeft(self, state:int=0):
+		if state == 0:
+			subprocess.run(["ydotool", "click", "0x80"])
+
+		elif state == 1:
+			subprocess.run(["ydotool", "click", "0x40"])
 		
 		
 	def mouseScrollUp(self):
 		subprocess.run(["ydotool", "mousemove", "-w", "--", "0", "1"])
 
 
-	
 	def mouseScrollDown(self):
 		subprocess.run(["ydotool", "mousemove", "-w", "--", "0", "-1"])
