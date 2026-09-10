@@ -7,18 +7,19 @@ class Control:
 		self.maxValueMousePosX = self.maxValueMousePosY = 0
 		subprocess.run(["ydotoold"])
 		sleep(1)
+		self.acceleration = 1
 
 
 	def notify(self, title:str, comment:str):
 		subprocess.run(["notify-send", title, comment]) 
 
 
-	def setVolume(self, volume:int):
-			volume = str((volume // 100) * 10)
-			print("--------"+volume)
-			if self.__lastVolume != volume:
-				subprocess.run(["amixer", "-D", "pulse", "set", "Master", volume+'%'])
-				self.__lastVolume = volume
+	# def setVolume(self, volume:int):
+	# 		volume = str((volume // 100) * 10)
+	# 		print("--------"+volume)
+	# 		if self.__lastVolume != volume:
+	# 			subprocess.run(["amixer", "-D", "pulse", "set", "Master", volume+'%'])
+	# 			self.__lastVolume = volume
 
 
 	def mouseMove(self, x:int=0, y:int=0):
@@ -33,7 +34,7 @@ class Control:
 		elif (y > 0 and y > self.maxValueMousePosY) or y < self.maxValueMousePosY:
 			self.maxValueMousePosY = y
 
-		subprocess.run(["ydotool", "mousemove", "-x", str(self.maxValueMousePosX*2), "-y", str(self.maxValueMousePosY*2)])
+		subprocess.run(["ydotool", "mousemove", "-x", str(self.maxValueMousePosX*self.acceleration), "-y", str(self.maxValueMousePosY*self.acceleration)])
 
 
 	def mouseClickRight(self):
@@ -45,9 +46,9 @@ class Control:
 		
 		
 	def mouseScrollUp(self):
-		subprocess.run(["ydotool", "mousemove", "-h", "0", "10"])
+		subprocess.run(["ydotool", "mousemove", "-w", "--", "0", "1"])
 
 
 	
 	def mouseScrollDown(self):
-		subprocess.run(["ydotool", "mousemove", "-h", "0", "-10"])
+		subprocess.run(["ydotool", "mousemove", "-w", "--", "0", "-1"])

@@ -12,12 +12,12 @@ class Control:
 		pyautogui.alert(text=comment, title=title)
 
 
-	def setVolume(self, volume:int):
-			volume = str((volume // 100) * 10)
-			print("--------"+volume)
-			if self.__lastVolume != volume:
-				subprocess.run(["amixer", "-D", "pulse", "set", "Master", volume+'%'])
-				self.__lastVolume = volume
+	# def setVolume(self, volume:int):
+	# 		volume = str((volume // 100) * 10)
+	# 		print("--------"+volume)
+	# 		if self.__lastVolume != volume:
+	# 			subprocess.run(["amixer", "-D", "pulse", "set", "Master", volume+'%'])
+	# 			self.__lastVolume = volume
 
 
 	def mouseMove(self, x:int=0, y:int=0):

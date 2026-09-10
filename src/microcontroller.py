@@ -11,7 +11,7 @@ class Connect():
 				break
 
 			except:
-				# print("not connected")
+				print("not connected")
 				pass
 
 

@@ -1,15 +1,10 @@
-from file import Parser
+
 import microcontroller 
 import system
 
 micro = microcontroller.Connect()
 
-configFile = Parser("config.cfg")
-configFile = configFile.get()
-
 control = system.Control()
-
-# control.playSound(0)
 control.notify("Microcontroller", "Is Connected")
 
 
@@ -18,11 +13,6 @@ while True:
 	print(option, value)
 	
 	match option:
-		
-		# case "AUDIO":
-		# 	# if volume.isdigit():
-		# 	control.setVolume(int(value))
-			
 
 		case "MOUSE":
 			posValue = int(value[1:])
